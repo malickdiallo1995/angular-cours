@@ -1,0 +1,56 @@
+<p></p>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">About</div>
+    <div class="panel-body">
+      <h3>Infos </h3>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info">Nom : {{info.nom}}</li>
+        <li class="list-group-item">Email : {{info.email}}</li>
+        <li class="list-group-item list-group-item-info">Telephone : {{info.tel}}</li>
+      </ul>
+
+      <hr style="   border:  solid dodgerblue;
+                    border-radius: 5px;" >
+
+<!--
+      <div>
+          <div class="form-group">
+            <label class="control-label">Saisir un commentaire : </label>
+            <input class="form-control" type="text" [(ngModel)] = "commentaireSaisi.message">
+            <p></p>
+            <button [disabled]="!commentaireSaisi.message" (click)="saveComments()" class="btn btn-success">Ajouter Commentaire</button>
+          </div>
+      </div>
+-->
+      <div>
+        <form #formElement="ngForm" (ngSubmit)="saveComments(formElement.value)">
+          <div class="form-group">
+            <label class="control-label">Commentaire : </label>
+            <input class="form-control" type="text" required name="message"  #message = "ngModel" [(ngModel)] = "commentaireSaisi.message" >
+            <!-- Message input not validate-->
+            <div *ngIf="message.dirty || message.touched">
+              <div *ngIf="message.errors.required" style="color: red">
+               saisir un commentaire*
+              </div>
+            </div>
+            <!-- End Control-->
+            <p></p>
+            <button  [disabled]="!formElement.valid" class="btn btn-success">Ajouter Commentaire</button>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="afficher">
+        <hr style="   border:  solid dodgerblue;border-radius: 5px;" >
+        <h3>Liste Commentaires </h3>
+        <ul  *ngFor="let c of comments" class="list-group">
+          <li class="list-group-item" >{{c.message}}
+            <span class="badge">date : {{c.date | date : 'dd/MM/yyyy à mm:ss'}}</span> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
